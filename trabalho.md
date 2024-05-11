@@ -17,10 +17,10 @@
 
       No exemplo abaixo uma variável troca de tipo apenas atribuindo um tipo diferente do inicial.
 
-        ~~~python
-        nome="willie" ## a variavel nome neste estágio é uma String, por auferencia
-        nome = 123 ## Com esta reatribuição a variável nome passa a ser um inteiro
-        ~~~
+    ~~~python
+    nome="willie" ## a variavel nome neste estágio é uma String, por auferencia
+    nome = 123 ## Com esta reatribuição a variável nome passa a ser um inteiro
+    ~~~
 
     Observação: O Python não possuí constantes.
     * Vetores:
