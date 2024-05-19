@@ -1,3 +1,375 @@
+# Gerenciador de Pacotes 📦
+
+Gerenciadores de pacotes como o `pip` são ferramentas que simplificam o processo de instalação, atualização e remoção de pacotes e suas dependências. Pacotes são coleções de códigos escritos na mesma linguagem com o objetivo de providenciar novas funcionalidades para os desenvolvedores.
+
+## O que é o `pip`? 🧐
+
+`pip` é um gerenciador de pacotes do Python, por meio dele é possível instalar pacotes oficiais da linguagem através do [Python Package Index](https://pypi.org/) (_PyPI_).
+
+Versões mais novas do Python já possuem o `pip` como gerenciador de pacotes padrão. Além disso, ele pode ser configurado para instalar pacotes de outros repositórios além do _PyPI_.
+
+Em suma, o `pip` é uma ferramenta essencial para desenvolvedores extenderem as funcionalidades dos seus códigos podendo gerenciar a instalação, upgrade e exclusão de pacotes e suas dependências.
+
+## Como utilizar? 🔎
+
+Para utilizar o `pip` primeiro é necessário verificar se o Python esta instalado. Abra o terminal e execute o comando:
+
+~~~bash
+python --version
+~~~
+
+O comando deverá retornar a versão o Python instalada, exemplo `Python 3.12.3`.
+
+>Caso contrário se direcione ao [site oficial](https://www.python.org/downloads/) para executar a instalação.
+
+Agora verifique se o `pip` esta instalado. execute o comando:
+
+~~~bash
+pip --version
+~~~
+
+Esse comando deverá retornar a versão do `pip`, exemplo `pip 24.0 from ...`
+
+>Caso contrário siga a [documentação oficial](https://pip.pypa.io/en/stable/installation/) para instalar do `pip`.
+
+Depois de validar se o `pip` esta instalado você pode utilizar ele para instalar qualquer pacote do Python.
+
+O exemplo abaixo mostra a instalação do pacote `requests`.
+
+~~~bash
+pip install requests
+~~~
+
+Da mesma forma o `pip` pode ser utilizado para fazer atualizações ou desinstalar pacotes.
+
+~~~bash
+pip install --upgrade requests
+~~~
+
+~~~bash
+pip uninstall requests
+~~~
+
+Outra maneira mais eficiente de se utilizar o `pip` para gerenciar dependencias de um projeto é através de um arquivo `requirements.txt`. Esse arquivo serve como uma lista de pacotes a serem instalados pelo `pip`, podendo ser adicionado pacotes e alterado versões dos mesmos. Por exemplo:
+
+~~~python
+requests == 2.31.0
+matplotlib == 3.9.0
+Django == 5.0.6
+...
+~~~
+
+~~~bash
+pip install requirements.txt
+~~~
+
+>Para mais informações sobre esse modelo siga a [documentação oficial](https://pip.pypa.io/en/stable/reference/requirements-file-format).
+
+# Bibliotecas 📚
+
+As bibiotecas em qualquer linguagem de programação exercem papeis importantes para o desenvolvimento de um projeto, sendo elas os principais componentes para maioria das operações de uma aplicação. A seguir podemos citar algumas bibliotecas que são muito utilizadas na área de aprendizado de máquina. 
+
+## Pandas
+
+`pandas` é uma biblioteca de manipulação de dados desenvolvido para trabalhar com dados estruturados como arquivos, planilhas, tabelas, etc. Ela oferece estruturas de dados flexíveis, para executar transformaçoes e tratamento de dados sendo ideal para tarefas de análise de dados.
+
+### Instalação 🛠️
+
+Se você já possui o `pip` instalado você pode facilmente instalar o pacote `pandas`, executando o comando:
+
+~~~bash
+pip install pandas
+~~~
+
+### Importação 📂
+
+Após a instalação, você pode importar o pacote `pandas` utilizando o comando:
+
+~~~python
+import pandas as pd
+~~~
+
+### Utilização 🔧
+
+A biblioteca `pandas` permite trabalhar com duas estruturas de dados o `Series` e o _DataFrame_. A estrutura `Series` é uma estrutura de dados unidimensional, e a estrutura _DataFrame_ é uma estrutura de dados multidimensional.
+
+Podemos comparar o `Series` com um array e o _DataFrame_ com uma matriz.
+
+É possivel criar essas estruturas apartir de listas, dicionários, arquivos csv, etc. Abaixo apresentaremos alguns exemplos de como criar essas estruturas de dados.
+
+~~~python
+titanic = pd.read_csv("titanic.csv")
+~~~
+
+Nesse exemplo podemos ver que a bilioteca `pandas` possui um método chamado `read_csv` que irá retornar um _DataFrame_ chamada `titanic`, apartir de um arquivo csv.
+
+Também é possivel visualizar o _DataFrame_ com o comando:
+
+~~~python
+print(titanic)
+~~~
+
+~~~python
+     PassengerId  Survived  Pclass  ...     Fare Cabin  Embarked
+0              1         0       3  ...   7.2500   NaN         S
+1              2         1       1  ...  71.2833   C85         C
+2              3         1       3  ...   7.9250   NaN         S
+3              4         1       1  ...  53.1000  C123         S
+4              5         0       3  ...   8.0500   NaN         S
+..           ...       ...     ...  ...      ...   ...       ...
+886          887         0       2  ...  13.0000   NaN         S
+887          888         1       1  ...  30.0000   B42         S
+888          889         0       3  ...  23.4500   NaN         S
+889          890         1       1  ...  30.0000  C148         C
+890          891         0       3  ...   7.7500   NaN         Q
+
+[891 rows x 12 columns]
+~~~
+
+Apartir desse `Dataframe` podemos realizar diversas operações de analise e tratamento de dados, como retornar o tipo de dados das colunas:
+
+~~~python
+print(titanic.dtypes)
+~~~
+
+~~~python
+PassengerId      int64
+Survived         int64
+Pclass           int64
+Name            object
+Sex             object
+Age            float64
+SibSp            int64
+Parch            int64
+Ticket          object
+Fare           float64
+Cabin           object
+Embarked        object
+dtype:          object
+~~~
+
+>Para mais exemplos de utilizações e funções existentes da biblioteca siga a [documentação oficial](https://pandas.pydata.org/docs/getting_started/index.html).
+
+## Numpy
+
+`numpy` foi desenvolvida para trabalhar com grandes massas de dados numéricos, operações matriciais e funções matemáticas. Nela é possivel criar arrays multidimensionais, essas estruturas são essencial para se executar operação matemáticas, sendo bastante utilizados para o aprendizado de máquina.
+
+### Instalação 🛠️
+
+Para instalar o `numpy` execute o comando:
+
+~~~bash
+pip install numpy
+~~~
+
+### Importação 📂
+
+Para importar o pacote `numpy` utilize o comando:
+
+~~~python
+import numpy as np
+~~~
+
+### Utilização 🔧
+
+Podemos começar a utilizar a biblioteca criando um array multidimensional:
+
+~~~python
+a = np.arange(15).reshape(3, 5)
+~~~
+
+Nesse exemplo criamos uma sequencia de 15 elementos, e alocamos esses elementos em um array multidimensional com 3 linhas e 5 colunas.
+
+~~~python
+print(a)
+~~~
+
+~~~python
+[[ 0,  1,  2,  3,  4],
+ [ 5,  6,  7,  8,  9],
+ [10, 11, 12, 13, 14]]
+~~~
+
+É importante salientar quo método `array` da biblioteca não pode ser comparado com a o métodoo básico `array` do Python. Neste caso o método criará uma classe  chamadas de `ndarrays`. Podemos verificar isso com o comando:
+
+~~~python
+type(a)
+~~~
+
+~~~python
+<class 'numpy.ndarray'>
+~~~
+
+A diferença é que a classe básica do Python não é multidimensional e oferece menos funcionalidades.
+
+Apartir do exemplo anterior podemos manipular o array de diversas formas, como somar os valores de cada coluna:
+
+~~~python
+a.sum(axis=0)
+~~~
+
+~~~python
+array([15, 18, 21, 24, 27])
+~~~
+
+Note que o comando `axis=0` indica que queremos somar os valores de cada coluna. Para somarmos os valores de cada linha, basta substituir o `axis=0` pelo `axis=1`.
+
+~~~python
+a.sum(axis=1)
+~~~
+
+~~~python
+array([ 10,  35,  60])
+~~~
+
+>Para mais exemplos de utilizações e funções existentes da biblioteca siga a [documentação oficial](https://numpy.org/doc/stable/user/quickstart.html).
+
+## SciPy
+
+`scipy` é uma biblioteca de computação cientifica que possibilita a manipulação de dados multidimensionais e funções matemáticas. Ela foi contruída apartir do `numpy` e oferece uma ampla gama de métodos e funções para computar os dados de uma forma mais eficiente.
+
+### Instalação 🛠️
+
+Para instalar o `scipy` execute o comando:
+
+~~~bash
+pip install scipy
+~~~
+
+### Importação 📂
+
+Para importar o `scipy` utilize o comando:
+
+~~~python
+import scipy
+~~~
+
+É importante salientar que o `scipy` pode ser importado de maneira separada, porém para alcançar todas as funcionalidades da biblioteca deve-se importar o `numpy` também.
+
+~~~python
+import numpy as np
+import scipy
+~~~
+
+### Utilização 🔧
+
+O caso de uso mais comum para o `scipy` é o `signal`, utilizado para processamento e analise de sinais ou dados serializado em tempo real.
+
+No exemplo abaixo iremos criar um sinal senoidal com um ruído e após isso aplicar o filtro de _Butterworth_. Esse filtro é utilizado para eliminar o ruiu do sinal e tornar o mesmo mais limpo possível.
+
+~~~python
+# Cria o sinal com ruido
+t = np.linspace(0, 1, 1000)
+sinal_limpo = np.sin(2 * np.pi * t)
+sigal_com_ruido = sinal_limpo + 0.5 * np.random.randn(len(t))
+
+# Cria o filtro de Butterworth
+nyquist = 0.5 * 1000  # Frequencia de Nyquist
+ordem = 4
+frequencia = 10  # Frequencia em Hz
+cutoff = frequencia / nyquist
+a, b = signal.butter(order, cutoff, btype='low', analog=False)
+
+# Aplica o filtro
+sinal_filtrado = signal.filtfilt(a, b, sigal_com_ruido)
+~~~
+
+Perceba que criamos tanto um sinal limpo quando o ruído com a biblioteca `numpy`. Em paralelo criamos um filtro de _Butterworth_ utilizando a biblioteca `scipy`.
+
+Nesse exemplo foi utilizado o método `butter` para criar o filtro e o método `filtfilt` para aplicar o filtro.
+
+Outro uso da biblioteca `scipy` é o `optimize`, utilizado para encontrar o melhor ajuste entre um conjunto de dados e uma função.
+
+>Para mais exemplos de utilizações e funções existentes da biblioteca siga a [documentação oficial](https://docs.scipy.org/doc/scipy/tutorial/index.html).
+
+## Seaborn
+
+O `seaborn` e uma biblioteca de visualização de dados. Sendo possível criar gráficos de alto desempenho com facilidade em Python. Contruído com base na bilbioteca `matplotlib` é possivel criar mapas de calor, histogramas e diagramas de dispersão, entre outros.
+
+### Instalação 🛠️
+
+Para instalar o `seaborn` execute o comando:
+
+~~~bash
+pip install seaborn
+~~~
+
+### Importação 📂
+
+Para importar o `seaborn` utilize o comando:
+
+~~~python
+import seaborn as sns
+~~~
+
+É importante notar que o `seaborn` possui algumas depedências que precisam ser instaladas. Por mais que essa biblioteca possa ser utilizada sozinha, você deve instalar as dependências de forma separada para poder aproveitar todas as suas funcionalidades.
+
+~~~python
+import numpy as np
+import pandas as pd
+
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+
+import seaborn as sns
+~~~
+
+### Utilização 🔧
+
+No exemplo abaixo iremos criar um diagrama de dispersão entre as variáveis `Age` (idade) e `Fare` (tarifa) do _Dataframe_ `titanic`.
+
+~~~python
+sns.scatterplot(x='Age', y='Fare', data=titanic)
+~~~
+
+Podemos perceber que a biblioteca `seaborn` possui um método chamado `scatterplot` que irá criar o diagrama de dispersão entre as variáveis `Idade` e `Tarifa`, e ela utilizará os dados do _Dataframe_ `titanic` criado apartir da biblioteca `pandas`.
+
+Agora podemos exibir o gráfico criado utilizando o método `show`:
+
+~~~python
+plt.show()
+~~~
+
+>Para mais exemplos de utilizações e funções existentes da biblioteca siga a [documentação oficial](https://seaborn.pydata.org/tutorial.html).
+
+## Sklearn
+
+`scikit-learn` ou simplesmente `sklearn` é uma biblioteca de aprendizado de máquina. Ela suporta tanto algoritmos de aprendizado supervisionado quanto não supervisionado. A biblioteca foi desenvolvida apartir do `numpy`, `matplotlib` e `scipy`, e gerencia as etapas de criação e treinamento de modelos..
+
+### Instalação 🛠️
+
+Para instalar o `sklearn` execute o comando:
+
+~~~bash
+pip install scikit-learn
+~~~
+
+### Importação 📂
+
+Para importar o `sklearn` utilize o comando:
+
+~~~python
+import sklearn
+~~~
+
+### Utilização 🔧
+
+No exemplo abaixo iremos criar um modelo de regressão linear entre as variáveis `Age` (idade) e `Fare` (tarifa) do _Dataframe_ `titanic`.
+
+~~~python
+regressor = LinearRegression()
+regressor.fit(titanic[['Age']], titanic[['Fare']])
+~~~
+
+Repare que o `sklearn` utiliza o método `fit` para treinar o modelo com o _Dataframe_ previamente criado utilizando a classe `LinearRegression`. Uma vez que um modelo foi treinado, podemos utilizar ele para prever valores.
+
+~~~python
+regressor.predict([40])
+~~~
+
+No exemplo acima iremos prever o valor de `Fare` para uma pessoa de 40 anos com base em todos os valores presentes no _Dataframe_ utilizando o método de regressão linear.
+
+>Para mais exemplos de utilizações e funções existentes da biblioteca siga a [documentação oficial](https://scikit-learn.org/stable/getting_started.html).
 
 # Resumo das características gerais
 
