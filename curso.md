@@ -5,6 +5,7 @@
 1. Introdução - Aula 1
    1. Ambiente de desenvolvimento
    2. Acessar a aba de desenvolvedor
+   3. Módulos
 
 2. Linguagem de progamação e algoritmos
    1. Variáveis
@@ -30,8 +31,9 @@
 ## Aula 3
 
 1. Manipulando planilhas
-2. Ambiente Gráfico
-3. Manipulação de arquivos
+2. Manipulando células
+3. Ambiente Gráfico
+4. Manipulação de arquivos
    1. Ler arquivo TXT
    2. Escrever Arquivo TXT
 
@@ -50,7 +52,7 @@ Continuação da eleboração do projeto e apresentação.
 
 O Visual Basic for Applications (VBA) é uma linguagem de programação poderosa e versátil integrada ao Microsoft Office. Ele permite automatizar tarefas, criar macros e interfaces de usuário personalizadas, estender as funcionalidades dos aplicativos do Office e muito mais. O VBA é relativamente fácil de aprender, especialmente para quem já tem conhecimento de outras linguagens de programação.
 
-Benefícios do VBA:
+**Benefícios do VBA:**
 
 Automação de Tarefas: Automatize tarefas repetitivas e complexas, economizando tempo e esforço.
 Criação de Macros: Crie macros para executar sequências de comandos com apenas um clique.
@@ -82,6 +84,25 @@ A guia "Desenvolvedor" agora estará disponível na faixa de opções, fornecend
 
 A linguagem de programação VBA é composta por comandos, funções e estruturas de controle que permitem realizar diversas operações. Para escrever código VBA eficaz, é importante entender os conceitos básicos de programação, como variáveis, vetores, listas, dicionários, estruturas condicionais, estruturas de repetição, funções e classes.
 
+Modulos:
+Um módulo é a unidade sintática fundamental do código-fonte VBA. A representação física de um módulo depende da implementação, mas, logicamente, um módulo VBA é uma sequência de caracteres Unicode que seguem as regras gramaticais da linguagem VBA. Um módulo consiste em duas partes: um cabeçalho de módulo e um corpo de módulo.
+
+Exemplo:
+
+~~~vba
+' Cabeçalho do módulo
+' Este módulo contém uma sub-rotina que escreve um texto na tela
+
+Sub escrever()
+    Dim texto As String
+    texto = "Olá, bem vindo ao mundo do VBA"
+    MsgBox (texto)
+    
+End Sub
+
+' Fim do módulo
+~~~
+
 1.1 Variáveis:
 
 As variáveis armazenam dados que podem ser utilizados em diferentes partes do código. Cada variável possui um nome e um tipo de dado (texto, número, data, etc.).
@@ -89,10 +110,53 @@ As variáveis armazenam dados que podem ser utilizados em diferentes partes do c
 Exemplos de Declaração de Variáveis:
 
 ~~~vba
-Dim nome As String
-Dim idade As Integer
-Dim salario As Double
-Dim dataNascimento As Date
+Option Explicit
+
+Sub ExemplosDeVariaveis()
+    ' Declarando variáveis de diferentes tipos
+    Dim inteiro As Integer
+    Dim longo As Long
+    Dim flutuante As Single
+    Dim duplo As Double
+    Dim moeda As Currency
+    Dim dataHora As Date
+    Dim booleano As Boolean
+    Dim texto As String
+    Dim variante As Variant
+    Dim intervalo As Range
+    Dim planilha As Worksheet
+
+    ' Atribuindo valores às variáveis
+    inteiro = 10
+    longo = 1234567890
+    flutuante = 3.14
+    duplo = 3.14159265358979
+    moeda = 19.99
+    dataHora = #5/18/2024 10:00:00 AM#
+    booleano = True
+    texto = "Olá, mundo!"
+    variante = "Pode ser qualquer coisa"
+    
+    ' Definindo a variável intervalo como uma célula específica
+    Set intervalo = ThisWorkbook.Sheets("Planilha1").Range("A1")
+    
+    ' Definindo a variável planilha como a primeira planilha do workbook
+    Set planilha = ThisWorkbook.Sheets(1)
+    
+    ' Exibindo os valores em uma mensagem
+    MsgBox "Valores das variáveis:" & vbCrLf & _
+           "Inteiro: " & inteiro & vbCrLf & _
+           "Longo: " & longo & vbCrLf & _
+           "Flutuante: " & flutuante & vbCrLf & _
+           "Duplo: " & duplo & vbCrLf & _
+           "Moeda: " & moeda & vbCrLf & _
+           "Data e Hora: " & dataHora & vbCrLf & _
+           "Booleano: " & booleano & vbCrLf & _
+           "Texto: " & texto & vbCrLf & _
+           "Variante: " & variante & vbCrLf & _
+           "Intervalo: " & intervalo.Address & vbCrLf & _
+           "Planilha: " & planilha.Name
+End Sub
 ~~~
 
 1.2 Vetores:
@@ -102,17 +166,25 @@ Os vetores armazenam coleções de dados do mesmo tipo. Cada elemento do vetor p
 Exemplos de Declaração e Manipulação de Vetores:
 
 ~~~VBA
+Option Explicit
+
+Sub vetores()
+
 Dim notas(10) As Integer
 notas(1) = 90
 notas(2) = 85
 notas(3) = 78
 
 Dim media As Integer
+Dim i As Integer
+
 For i = 1 To 10
   media = media + notas(i)
 Next i
 
 MsgBox "Média: " & media
+
+End Sub
 ~~~
 
 1.3 Listas:
@@ -122,16 +194,19 @@ As listas armazenam coleções de dados de qualquer tipo. São mais flexíveis q
 Exemplos de Declaração e Manipulação de Listas:
 
 ~~~VBA
+Sub lista()
 Dim alunos As New Collection
 alunos.Add "João"
 alunos.Add "Maria"
 alunos.Add "Pedro"
 
 MsgBox "Quantidade de alunos: " & alunos.Count
-
+Dim aluno As Variant
 For Each aluno In alunos
   MsgBox aluno
 Next aluno
+End Sub
+
 ~~~
 
 1.4 Dicionários:
@@ -141,9 +216,67 @@ Os dicionários armazenam coleções de dados em pares chave-valor. As chaves se
 Exemplos de Declaração e Manipulação de Dicionários:
 
 ~~~VBA
-Dim cidades As New Dictionary
-cidades.Add "SP", "São Paulo"
-cidades
+Sub dicionario()
+Dim paises As New Dictionary
+
+
+
+' Declarando um dicionário com valores iniciais
+Dim capitais As New Dictionary
+capitais.Add "Brasil", "Brasília"
+capitais.Add "Portugal", "Lisboa"
+capitais.Add "França", "Paris"
+' Adicionando um par chave-valor
+paises.Add "BR", "Brasil"
+paises.Add "PT", "Portugal"
+paises.Add "FR", "França"
+' Acessando o valor da chave "BR"
+Dim pais As String
+pais = paises("BR")
+MsgBox pais ' Exibe "Brasil"
+
+' Acessando o valor da chave "FR"
+Dim capital As String
+capital = capitais("FR")
+MsgBox capital ' Exibe "Paris"
+' Verificando se a chave "BR" existe
+If paises.Exists("BR") Then
+    MsgBox "A chave 'BR' existe no dicionário."
+Else
+    MsgBox "A chave 'BR' não existe no dicionário."
+End If
+' Removendo a chave "PT"
+paises.Remove "PT"
+
+' Removendo a chave "FR"
+capitais.Remove "FR"
+' Limpando o dicionário "paises"
+paises.RemoveAll
+
+' Limpando o dicionário "capitais"
+capitais.RemoveAll
+' Percorrendo o dicionário "paises" e exibindo chave e valor
+Dim paisAux As Variant
+For Each paisAux In paises
+    MsgBox paisAux & " - " & paises(pais)
+Next paisAux
+
+' Percorrendo o dicionário "capitais" e exibindo capital
+Dim capitalAux As Variant
+For Each capitalAux In capitais
+    MsgBox capitalAux
+Next capitalAux
+' Obtendo a quantidade de países no dicionário "paises"
+Dim quantidadePaises As Integer
+quantidadePaises = paises.Count
+MsgBox "Quantidade de países: " & quantidadePaises
+
+' Obtendo a quantidade de capitais no dicionário "capitais"
+Dim quantidadeCapitais As Integer
+quantidadeCapitais = capitais.Count
+MsgBox "Quantidade de capitais: " & quantidadeCapitais
+End Sub
+
 ~~~
 
 1.5 Estruturas Condicionais:
@@ -186,12 +319,12 @@ Quando você precisa lidar com diversas possibilidades e tomar ações específi
 * CASE (valor1): Bloco de código executado se a variável for igual ao valor1.
 * CASE (valor2): Bloco de código executado se a variável for igual ao valor2.
 ... outros casos: Mais blocos CASE para outros valores.
-* DEFAULT: Bloco de código executado se nenhum dos valores CASE corresponder.
+* CASE ELSE: Bloco de código executado se nenhum dos valores CASE corresponder.
 
-Exemplo 1:
+Exemplo:
 
 ~~~vba
-' Selecionando o dia da semana e exibindo uma mensagem personalizada
+Sub switchCase()
 Dim diaSemana As String
 diaSemana = InputBox("Digite o dia da semana (segunda, terça, ...):")
 
@@ -201,27 +334,12 @@ Select Case diaSemana
     Case "terça"
         MsgBox "Terça-feira: Superando o hump day com energia!"
     ' ... outros casos para os demais dias da semana
-    Default
-        MsgBox "Dia da semana inválido. Tente novamente."
+    Case Else
+        MsgBox "Dia não Encontrado"
+    
 End Select
-~~~
+End Sub
 
-Exemplo 2:
-
-~~~vba
-' Selecionando o dia da semana e exibindo uma mensagem personalizada
-Dim diaSemana As String
-diaSemana = InputBox("Digite o dia da semana (segunda, terça, ...):")
-
-Select Case diaSemana
-    Case "segunda"
-        MsgBox "Segunda-feira: Hora de começar a semana com foco!"
-    Case "terça"
-        MsgBox "Terça-feira: Superando o hump day com energia!"
-    ' ... outros casos para os demais dias da semana
-    Default
-        MsgBox "Dia da semana inválido. Tente novamente."
-End Select
 ~~~
 
 1.6 Estruturas de Repetição:
@@ -234,6 +352,7 @@ NEXT (contador): Incrementa o contador e verifica se ainda está dentro do inter
 
 ~~~vba
 ' Imprimindo números de 1 a 10
+Dim i as Integer
 For i = 1 To 10
     MsgBox i
 Next i
@@ -248,6 +367,7 @@ LOOP: Executa o bloco de código enquanto a condição for verdadeira.
 ~~~vba
 ' Calculando a soma de números ímpares até 100
 Dim soma As Integer
+dim i As Integer
 soma = 0
 i = 1
 
@@ -269,8 +389,13 @@ FOR EACH (variável) IN (coleção): Define a variável que receberá cada eleme
 NEXT (variável): Passa para o próximo elemento da coleção.
 
 ~~~vba
+Option Explicit
+
+Sub forEach()
 ' Imprimindo os nomes das capitais do Brasil
 Dim estados As New Dictionary
+Dim estado As Variant
+
 estados.Add "AC", "Rio Branco"
 estados.Add "AL", "Maceió"
 ' ... outros estados e capitais
@@ -278,6 +403,8 @@ estados.Add "AL", "Maceió"
 For Each estado In estados
     MsgBox estado & " - " & estados(estado)
 Next estado
+
+End Sub
 ~~~
 
 1.7 Funções
@@ -292,10 +419,12 @@ Function somar(numero1 As Integer, numero2 As Integer) As Integer
     somar = numero1 + numero2
 End Function
 
+Sub printBonus()
 ' Chamando a função para somar 5 e 10
 Dim resultado As Integer
 resultado = somar(5, 10)
 MsgBox "Resultado da soma: " & resultado
+End Sub
 ~~~
 
 Funções sem Retorno:
@@ -311,45 +440,563 @@ No VBA, as classes são como plantas mágicas que geram objetos poderosos e reut
 Para criar uma classe, utilize a palavra-chave Class seguida do nome da classe e End Class. Dentro da classe, você define propriedades (dados) e métodos (comportamentos) que pertencem àquela classe.
 
 ~~~vba
-' Classe para representar um cliente
-Class Cliente
+' variaveis
+Private m_nome As String
+Private m_peso As Double
+Private m_altura As Double
 
-    ' Propriedades (dados)
-    Private nome As String
-    Private email As String
-    Private telefone As String
+' Properties
+Property Get Nome() As String
+    Nome = m_nome
+End Property
 
-    ' Métodos (comportamentos)
-    Public Sub NovoCliente(nomeCliente As String, emailCliente As String, telefoneCliente As String)
-        nome = nomeCliente
-        email = emailCliente
-        telefone = telefoneCliente
-    End Sub
+Property Let Nome(value As String)
+    m_nome = value
+End Property
 
-    Public Function ObterNome() As String
-        ObterNome = nome
-    End Function
+Property Get Peso() As String
+    Peso = m_pesos
+End Property
 
-    Public Function ObterEmail() As String
-        ObterEmail = email
-    End Function
+Property Let Peso(value As String)
+    m_peso = value
+End Property
+Property Get Altura() As String
+    Altura = m_altura
+End Property
 
-    Public Function ObterTelefone() As String
-        ObterTelefone = telefone
-    End Function
+Property Let Altura(value As String)
+    m_altura = value
+End Property
 
-End Class
+' Construtor da classe
+Private Sub Class_Initialize()
+    m_nome = ""
+    m_peso = 1
+    m_altura = 1
+End Sub
+
+' Métodos
+Public Function calcularIMC()
+    If m_altura > 0 Then
+            calcularIMC = m_peso / (m_altura * m_altura)
+        Else
+            calcularIMC = 0
+        End If
+End Function
+
 ~~~
 
 Após criar a classe, você instancia objetos a partir dela utilizando a palavra-chave New. Cada objeto possui suas próprias propriedades e métodos, acessíveis através do ponto (.).
 
 ~~~vba
-' Criando um objeto cliente
-Dim cliente1 As New Cliente
-cliente1.NovoCliente "João Silva", "joaosilva@email.com", "(11) 9999-9999"
+Option Explicit
 
-' Acessando propriedades do objeto
-MsgBox cliente1.ObterNome() ' Exibe "João Silva"
-MsgBox cliente1.ObterEmail() ' Exibe "joaosilva@email.com"
-MsgBox cliente1.ObterTelefone() ' Exibe "(11) 9999-9999"
+Sub calculoIMC()
+    Dim IMC As Double
+    Dim p As New Pessoa
+
+    p.Peso = 65
+    p.Altura = 1.75
+
+    IMC = p.calcularIMC
+
+    MsgBox "O IMC é " & IMC
+End Sub
+~~~
+
+1. Macros
+1.1 Introdução aos Macros
+Macros são sequências de comandos gravados que podem ser executados automaticamente para realizar tarefas repetitivas no Excel. Usando o VBA (Visual Basic for Applications), é possível criar, editar e automatizar essas tarefas, economizando tempo e reduzindo a chance de erros humanos. Macros podem ser usadas para uma variedade de propósitos, como formatar planilhas, gerar relatórios e executar cálculos complexos.
+
+1.2 Gravar Macros
+Gravar macros no Excel é um processo simples que não requer conhecimentos profundos de programação. Siga os passos abaixo para gravar uma macro:
+
+Acessar a guia Desenvolvedor:
+
+Se a guia Desenvolvedor não estiver visível, vá para Arquivo > Opções > Personalizar Faixa de Opções e marque a caixa Desenvolvedor.
+Iniciar a Gravação da Macro:
+
+Na guia Desenvolvedor, clique em Gravar Macro.
+Na janela que aparece, dê um nome para a macro, defina uma tecla de atalho (opcional) e escolha onde armazenar a macro (Pasta de Trabalho Atual, Nova Pasta de Trabalho ou Pasta de Trabalho Pessoal de Macros).
+Executar as Ações:
+
+Realize as ações no Excel que deseja automatizar. Cada clique, digitação ou comando será gravado.
+Parar a Gravação:
+
+Após concluir as ações, clique em Parar Gravação na guia Desenvolvedor.
+
+1.3 Editar Macros
+Depois de gravar uma macro, você pode precisar editar o código VBA para refinar ou adicionar funcionalidades. Para editar uma macro:
+
+Abrir o Editor do VBA:
+
+Na guia Desenvolvedor, clique em Visual Basic ou pressione Alt + F11.
+Localizar a Macro:
+
+No painel Projeto (à esquerda), expanda a pasta Módulos e clique duas vezes no módulo que contém a macro que você deseja editar.
+Editar o Código:
+
+O código VBA da macro aparecerá na janela principal. Faça as modificações necessárias no código. O VBA usa uma linguagem similar ao Visual Basic, e comandos comuns incluem Range, Cells, For, If, entre outros.
+Salvar e Testar:
+
+Salve as alterações (Ctrl + S) e teste a macro no Excel para garantir que funciona conforme o esperado.
+1.4 Executar Macros
+Existem várias maneiras de executar macros no Excel:
+
+Através da Guia Desenvolvedor:
+
+Clique em Macros na guia Desenvolvedor.
+Selecione a macro que deseja executar na lista e clique em Executar.
+Através de Teclas de Atalho:
+
+Se você definiu uma tecla de atalho ao gravar a macro, pressione essa combinação de teclas para executá-la.
+Através de Botões e Formas:
+
+Você pode associar uma macro a um botão ou forma na planilha.
+Na guia Desenvolvedor, clique em Inserir e escolha um botão ou forma.
+Desenhe o botão na planilha, selecione a macro na lista e clique em OK.
+Através do Editor do VBA:
+
+Abra o Editor do VBA (Alt + F11).
+Localize a macro e clique com o botão direito do mouse no código, depois clique em Executar.
+
+2.Funções VBA
+2.1 Funções Embutidas
+O VBA oferece uma vasta gama de funções embutidas que facilitam a manipulação de dados, cálculos e automação de tarefas no Excel. Estas funções são pré-definidas e podem ser usadas diretamente no código VBA para realizar operações comuns. Aqui estão algumas categorias e exemplos de funções embutidas:
+
+Funções de Texto:
+
+Len: Retorna o número de caracteres em uma string.
+
+~~~vba
+Dim texto As String
+texto = "Hello, VBA!"
+MsgBox Len(texto)  ' Resultado: 10
+~~~
+
+Mid: Extrai uma substring de uma string.
+
+~~~vba
+Dim texto As String
+texto = "Hello, VBA!"
+MsgBox Mid(texto, 8, 3)  ' Resultado: VBA
+~~~
+
+Funções de Data e Hora:
+
+Now: Retorna a data e hora atuais.
+
+~~~vba
+MsgBox Now
+~~~
+
+DateAdd: Adiciona um intervalo de tempo a uma data.
+
+~~~vba
+Dim data As Date
+data = DateAdd("d", 7, Now)  ' Adiciona 7 dias à data atual
+MsgBox data
+~~~
+
+Funções Matemáticas:
+
+Abs: Retorna o valor absoluto de um número.
+
+~~~vba
+MsgBox Abs(-123)  ' Resultado: 123
+~~~
+
+Round: Arredonda um número para um determinado número de casas decimais.
+
+~~~vba
+MsgBox Round(123.456, 2)  ' Resultado: 123.46
+~~~
+
+Funções de Conversão:
+
+CInt: Converte uma expressão para um valor inteiro.
+
+~~~vba
+Dim num As Double
+num = 123.45
+MsgBox CInt(num)  ' Resultado: 123
+~~~
+
+CStr: Converte uma expressão para uma string.
+
+~~~vba
+Dim num As Integer
+num = 123
+MsgBox CStr(num)  ' Resultado: "123"
+~~~
+
+2.2 Funções Personalizadas
+Além das funções embutidas, você pode criar suas próprias funções personalizadas (UDFs - User Defined Functions) no VBA para atender necessidades específicas. Essas funções podem ser usadas diretamente em células do Excel, assim como as funções padrão.
+
+Criando uma Função Personalizada:
+
+No Editor do VBA, insira um novo módulo clicando em Inserir > Módulo.
+Escreva o código da função dentro desse módulo. Uma função personalizada começa com a palavra-chave Function e termina com End Function.
+Exemplo: Criar uma função que calcula a área de um círculo com base no raio.
+
+~~~vba
+Function CalcularAreaCirculo(raio As Double) As Double
+    CalcularAreaCirculo = 3.14159 * raio * raio
+End Function
+~~~
+
+Usando a Função Personalizada no Excel:
+
+Após criar a função no Editor do VBA, volte para o Excel.
+Em uma célula, digite a fórmula utilizando a função personalizada, assim como faria com qualquer outra função do Excel.
+excel
+=CalcularAreaCirculo(A1)
+Onde A1 contém o valor do raio.
+Exemplo de Função Complexa:
+
+Vamos criar uma função personalizada que verifica se um número é primo.
+
+~~~vba
+Function EhPrimo(numero As Integer) As Boolean
+    Dim i As Integer
+    EhPrimo = True
+    If numero <= 1 Then
+        EhPrimo = False
+        Exit Function
+    End If
+    For i = 2 To Sqr(numero)
+        If numero Mod i = 0 Then
+            EhPrimo = False
+            Exit Function
+        End If
+    Next i
+End Function
+~~~
+
+Para usar essa função no Excel:
+excel
+=EhPrimo(A1)
+Onde A1 contém o número que deseja verificar.
+
+1. Manipulando Planilhas
+Manipular planilhas no Excel usando VBA permite automatizar tarefas como criar, renomear, excluir e mover planilhas. Aqui estão alguns exemplos comuns:
+
+Criar uma Nova Planilha:
+
+~~~vba
+Sub CriarNovaPlanilha()
+    Worksheets.Add
+End Sub
+~~~
+
+Renomear uma Planilha:
+
+~~~vba
+Sub RenomearPlanilha()
+    Worksheets("Planilha1").Name = "NovaPlanilha"
+End Sub
+~~~
+
+Excluir uma Planilha:
+
+~~~vba
+Sub ExcluirPlanilha()
+    Application.DisplayAlerts = False  ' Evita a confirmação
+    Worksheets("Planilha1").Delete
+    Application.DisplayAlerts = True
+End Sub
+~~~
+
+Mover uma Planilha:
+
+~~~vba
+Sub MoverPlanilha()
+    Worksheets("Planilha1").Move Before:=Worksheets("Planilha2")
+End Sub
+~~~
+
+Copiar uma Planilha:
+
+~~~vba
+Sub CopiarPlanilha()
+    Worksheets("Planilha1").Copy After:=Worksheets("Planilha2")
+End Sub
+~~~
+
+Verificar se uma planilha existe
+
+~~~vba
+Function PlanilhaExiste(nomePlanilha As String) As Boolean
+    Dim plan As Worksheet
+    PlanilhaExiste = False
+    For Each plan In ThisWorkbook.Worksheets
+        If plan.Name = nomePlanilha Then
+            PlanilhaExiste = True
+            Exit Function
+        End If
+    Next plan
+End Function
+~~~
+
+1. Manipulando Células
+Manipular células no Excel usando VBA permite automatizar tarefas como selecionar, modificar, formatar e validar dados. Aqui estão alguns exemplos e métodos comuns de manipulação de células.
+
+4.1 Selecionar Células
+Selecionar células é a base para muitas operações de manipulação de dados no Excel.
+
+Selecionar uma Célula Específica:
+
+~~~vba
+Sub SelecionarCelula()
+    Worksheets("Planilha1").Range("A1").Select
+End Sub
+~~~
+
+Selecionar um Intervalo de Células:
+
+~~~vba
+Sub SelecionarIntervalo()
+    Worksheets("Planilha1").Range("A1:B10").Select
+End Sub
+~~~
+
+Selecionar Células Usando Cells:
+
+~~~vba
+Sub SelecionarCelulaComCells()
+    Worksheets("Planilha1").Cells(1, 1).Select  ' A1
+End Sub
+~~~
+
+4.2 Modificar o Conteúdo das Células
+Modificar o conteúdo das células é uma tarefa comum ao automatizar planilhas.
+
+Inserir Valores em Células:
+
+~~~vba
+Sub InserirValorCelula()
+    Worksheets("Planilha1").Range("A1").Value = "Olá, VBA!"
+End Sub
+~~~
+
+Inserir Valores em um Intervalo de Células:
+
+~~~vba
+Sub InserirValorIntervalo()
+    Worksheets("Planilha1").Range("A1:A5").Value = "Texto"
+End Sub
+~~~
+
+4.3 Formatar Células
+Formatar células pode melhorar a aparência e a legibilidade dos dados.
+
+Alterar a Cor de Fundo:
+
+~~~vba
+Sub AlterarCorFundo()
+    Worksheets("Planilha1").Range("A1").Interior.Color = RGB(255, 255, 0)  ' Amarelo
+End Sub
+~~~
+
+Alterar a Fonte:
+
+~~~vba
+Sub AlterarFonte()
+    With Worksheets("Planilha1").Range("A1")
+        .Font.Name = "Arial"
+        .Font.Size = 14
+        .Font.Bold = True
+    End With
+End Sub
+~~~
+
+Aplicar Bordas:
+
+~~~vba
+Sub AplicarBordas()
+    With Worksheets("Planilha1").Range("A1:B2").Borders
+        .LineStyle = xlContinuous
+        .Weight = xlThin
+        .ColorIndex = 0
+    End With
+End Sub
+~~~
+
+4.5 Trabalhar com Fórmulas
+Inserir e manipular fórmulas é uma das funcionalidades mais poderosas do Excel.
+
+Inserir uma Fórmula em uma Célula:
+
+~~~vba
+Sub InserirFormula()
+    Worksheets("Planilha1").Range("A1").Formula = "=SOMA(B1:B10)"
+End Sub
+~~~
+
+1. Ambiente Gráfico do Excel para VBA: Forms
+
+Os formulários (forms) no VBA são usados para criar interfaces de usuário interativas que podem melhorar significativamente a usabilidade e funcionalidade das suas aplicações no Excel. A seguir, veremos como criar e manipular formulários e seus controles.
+
+5.1 Criar um Formulário
+Para criar um formulário no VBA:
+
+Abrir o Editor do VBA:
+
+Pressione Alt + F11 para abrir o Editor do VBA.
+Inserir um Novo UserForm:
+
+No Editor do VBA, vá em Inserir > UserForm. Isso adiciona um novo formulário (UserForm1) ao seu projeto.
+Adicionar Controles ao Formulário:
+
+Use a Caixa de Ferramentas (Toolbox) para arrastar e soltar controles (como botões, caixas de texto, rótulos) no UserForm.
+
+5.2 Adicionar Controles ao Formulário
+Os controles são elementos interativos que permitem aos usuários interagir com o formulário.
+
+Adicionar um Botão:
+
+Arraste um controle CommandButton da Caixa de Ferramentas para o UserForm.
+Para alterar o nome e a legenda do botão, selecione-o e use a janela de Propriedades.
+
+~~~vba
+' Exemplo de código para o clique do botão
+Private Sub CommandButton1_Click()
+    MsgBox "Botão clicado!"
+End Sub
+~~~
+
+Adicionar uma Caixa de Texto:
+
+Arraste um controle TextBox da Caixa de Ferramentas para o UserForm.
+Você pode acessar o valor da caixa de texto com TextBox1.Value.
+
+~~~vba
+' Exemplo de código para obter o valor da caixa de texto
+Private Sub CommandButton1_Click()
+    MsgBox "O valor inserido é: " & TextBox1.Value
+End Sub
+~~~~
+
+Adicionar um Rótulo:
+
+Arraste um controle Label da Caixa de Ferramentas para o UserForm.
+Use a janela de Propriedades para definir o texto do rótulo.
+
+~~~vba
+' Alterar o texto do rótulo via código
+Label1.Caption = "Insira seu nome:"
+~~~
+
+Adicionar uma Caixa de Combinação (ComboBox):
+
+Arraste um controle ComboBox da Caixa de Ferramentas para o UserForm.
+Adicione itens ao ComboBox no evento Initialize do UserForm.
+
+~~~vba
+Private Sub UserForm_Initialize()
+    ComboBox1.AddItem "Opção 1"
+    ComboBox1.AddItem "Opção 2"
+    ComboBox1.AddItem "Opção 3"
+End Sub
+~~~
+
+~~~vba
+' Exemplo de código para obter o valor selecionado
+Private Sub CommandButton1_Click()
+    MsgBox "Você selecionou: " & ComboBox1.Value
+End Sub
+~~~
+
+5.3 Mostrar e Fechar o Formulário
+Para exibir e fechar o UserForm:
+
+Mostrar o Formulário:
+
+Use o seguinte código para exibir o formulário:
+
+~~~vba
+Sub MostrarForm()
+    UserForm1.Show
+End Sub
+~~~
+
+Fechar o Formulário:
+
+Use o seguinte código para fechar o formulário:
+
+~~~vba
+Private Sub CommandButton2_Click()
+    Unload Me
+End Sub
+~~~
+
+5.4 Eventos do Formulário
+Eventos são ações que ocorrem em resposta a interações do usuário, como cliques de botão ou mudanças de valor.
+
+Evento de Inicialização:
+
+O evento Initialize é disparado quando o formulário é carregado.
+
+~~~vba
+Private Sub UserForm_Initialize()
+    MsgBox "Formulário iniciado"
+End Sub
+~~~
+
+Evento de Clique do Botão:
+
+O evento Click é disparado quando um botão é clicado.
+
+~~~vba
+
+Private Sub CommandButton1_Click()
+    MsgBox "Botão 1 clicado"
+End Sub
+Evento de Mudança de Valor da Caixa de Texto:
+~~~
+
+O evento Change é disparado quando o valor da caixa de texto muda.
+
+~~~vba
+Private Sub TextBox1_Change()
+    Label1.Caption = TextBox1.Value
+End Sub
+~~~
+
+5.5 Exemplo Completo de Formulário
+Aqui está um exemplo completo de um formulário com diferentes controles e eventos:
+
+Criar o Formulário:
+
+Adicione um UserForm e nomeie-o UserForm1.
+Adicione os seguintes controles:
+Label1 com a legenda "Insira seu nome:"
+TextBox1 para entrada de texto
+ComboBox1 com algumas opções
+CommandButton1 com a legenda "OK"
+CommandButton2 com a legenda "Cancelar"
+Código VBA para o Formulário:
+
+~~~vba
+Private Sub UserForm_Initialize()
+    Label1.Caption = "Insira seu nome:"
+    ComboBox1.AddItem "Opção 1"
+    ComboBox1.AddItem "Opção 2"
+    ComboBox1.AddItem "Opção 3"
+End Sub
+
+Private Sub CommandButton1_Click()
+    MsgBox "Nome: " & TextBox1.Value & vbCrLf & "Opção selecionada: " & ComboBox1.Value
+End Sub
+
+Private Sub CommandButton2_Click()
+    Unload Me
+End Sub
+Mostrar o Formulário:
+
+~~~vba
+Sub MostrarFormulario()
+    UserForm1.Show
+End Sub
 ~~~
